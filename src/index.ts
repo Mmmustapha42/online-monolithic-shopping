@@ -11,6 +11,7 @@ const startServer = async ()=>{
 
     databaseConnection()
     expressApp(app)
+    
 
     app.listen(config.port, ()=> {
         console.log(`Now listening on port ${config.port}`)
