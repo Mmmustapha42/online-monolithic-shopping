@@ -26,7 +26,7 @@ export default class Duties {
         return (await this.generatePassword(enteredpASSWORD, salt)) === savedPassword
     }
 
-    public async generateSignature(payload:string | object | Buffer) {
+    public static async generateSignature(payload:string | object | Buffer) {
         try {
             return await jwt.sign(payload, secret.appSecret, { expiresIn: "30d" });
         }catch(err){
@@ -35,7 +35,7 @@ export default class Duties {
         }
     }
 
-    public async valindateSignature(req:Request, res:Response, next:NextFunction) {
+    public async validateSignature(req:Request, res:Response, next:NextFunction) {
         try {
             if(req.headers.authorization?.startsWith('Bearer')) {
                 let token = req.headers.authorization.slice(7)

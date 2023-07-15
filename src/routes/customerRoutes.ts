@@ -1,29 +1,17 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import {UserController} from "../controllers/customerController";
+import { UserAuth } from "../utils/middlewares/authMiddleware";
 
 const router = Router()
 
-// class CustomerRouter {
-//     public customerController = new UserController ()
-//     public router = Router();
-
-//     constructor() {
-//         this.initializeRoutes();
-//       }
-
-//     public initializeRoutes() {
-//         this.router
-//         .get('/', (req:Request, res:Response)=>{
-//             res.send('lets start')
-//         })
-//     }
-// }
-
-router.get("/entries", (req:Request, res:Response)=>{
-    res.send('lets start')
-});
-router.get("/customers", UserController.getCustomers)
+router.get("/customers", UserAuth, UserController.getCustomers)
+router.get("/address", UserAuth, UserController.getAddress)
+router.post("/customers", UserController.createUser)
+router.post("/customers-address", UserAuth, UserController.createAddress)
+router.post("/sign-in", UserController.loginUser)
+router.get("/:id", UserAuth, UserController.getCustomer)
+router.get("/customer/wishlist/:id", UserAuth, UserController.GetWISHList)
 
 
 
-export default router
+export default router;

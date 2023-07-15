@@ -26,12 +26,20 @@ type OrddrContainer = {
     date:Date
 }
 
+interface addressAttributes {
+    _id: string,
+    street: string,
+    postalCode: string,
+    city: string,
+    country: string,
+}
+
 export interface CustomerAttributes {
+    name: string,
     email: string,
     password: string,
-    salt: string,
-    phone: string,
-    address: Array<object>
+    phone: number,
+    address: Array<addressAttributes>
     cart:Array<object>
     wishlist:Array<object>
     orders:Array<object>
@@ -40,9 +48,10 @@ export interface CustomerAttributes {
 export interface ICustomer extends CustomerAttributes, Document {}
 
 const CustomerSchema:Schema = new mongoose.Schema<ICustomer>({
-    email: String,
+    name: String,
+    email: { type: String, required: true, unique:true},
     password: String,
-    phone: String,
+    phone: Number,
     address:[
         { type: Schema.Types.ObjectId, ref: 'address', required: true }
     ],
